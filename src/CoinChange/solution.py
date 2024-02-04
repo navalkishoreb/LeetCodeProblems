@@ -1,26 +1,31 @@
+import sys
 from typing import List
 
 
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        coins = set(coins)
-        dp = dict()
-        dp[0] = 0
+        dp = {}
         for coin in coins:
             dp[coin] = 1
 
-        def dfs(target_sum: int):
-            if target_sum < 0:
-                return -1
-            if target_sum in dp:
-                return dp[target_sum]
+        def minimum_denominations(current, count):
+            if current < 0:
+                return None
+            if current == 0:
+                return count
 
-            result = [dfs(target_sum=target_sum - coin) for coin in coins]
-            positive_results = [item for item in result if item > 0]
-            if positive_results:
-                dp[target_sum] = min(positive_results) + 1
-            else:
-                dp[target_sum] = -1
-            return dp[target_sum]
+            if current in dp:
+                return dp[current]
 
-        return dfs(target_sum=amount)
+            results = [
+                minimum_denominations(current=current - coin, count=count + 1)
+                for coin in coins
+            ]
+            results = [result for result in results if result]
+
+            minimum_result = min(results) + 1 if results else None
+            dp[current] = minimum_result
+            return minimum_result
+
+        result = minimum_denominations(current=amount, count=0)
+        return -1 if result is None else result

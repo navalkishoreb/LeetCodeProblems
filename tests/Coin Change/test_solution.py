@@ -6,6 +6,10 @@ from src.CoinChange.solution import Solution
 @pytest.mark.parametrize(
     argnames=["coins", "amount", "expected"],
     argvalues=[[[1, 2, 3], 4, 2], [[1, 2, 5], 11, 3], [[1], 0, 0], [[2], 1, -1]],
+    # argvalues=[[[2], 1, -1]],
+    # argvalues=[[[1, 2, 3], 4, 2]],
+    # argvalues=[[[1, 2, 5], 11, 3]],
+    # argvalues=[[[1], 0, 0]],
 )
 def test_coinChange(coins, amount, expected):
     actual = Solution().coinChange(coins=coins, amount=amount)
