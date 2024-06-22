@@ -24,6 +24,8 @@ Given an integer array nums representing the amount of money of each house, retu
   1 <= nums.length <= 100
   0 <= nums[i] <= 400
 """
+from typing import List
+
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
@@ -31,11 +33,7 @@ class Solution:
         rob_with_neighbour = 0
 
         for item in nums:
-            value = max(
-                rob_without_neighbour + item,
-                rob_with_neighbour
-            )
+            value = max(rob_without_neighbour + item, rob_with_neighbour)
             rob_without_neighbour = rob_with_neighbour
             rob_with_neighbour = value
         return rob_with_neighbour
-
