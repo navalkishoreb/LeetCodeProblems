@@ -27,23 +27,19 @@ Given an integer array nums representing the amount of money of each house, retu
   1 <= nums.length <= 100
   0 <= nums[i] <= 1000
   """
+from typing import List
+
+
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        
         return max(nums[0], self.rob_helper(nums[1:]), self.rob_helper(nums[:-1]))
-    
+
     def rob_helper(self, nums: List[int]) -> int:
         rob_without_neighbour = 0
         rob_with_neighbour = 0
 
         for item in nums:
-            value = max(
-                rob_without_neighbour + item,
-                rob_with_neighbour
-            )
+            value = max(rob_without_neighbour + item, rob_with_neighbour)
             rob_without_neighbour = rob_with_neighbour
             rob_with_neighbour = value
         return rob_with_neighbour
-        
-    
-
